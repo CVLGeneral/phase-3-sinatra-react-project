@@ -1,138 +1,93 @@
-# Phase 3 Project Guidelines
+# Artist-Songs Music Library
+This is a music library application that allows you to manage artists and their songs. It provides a RESTful API for performing CRUD (Create, Read, Update, Delete) operations on artists and songs. The application uses Ruby on Rails and ActiveRecord for data management.
 
-## Learning Goals
+# Entity Relationship Diagram (ERD)
+ERD Diagram
 
-- Build a web basic API with Sinatra and Active Record to support a React
-  frontend
+# Getting Started
+To get started with the application, follow these steps:
 
-## Introduction
+Clone the repository to your local machine.
+Run bundle install to install the required gems.
+Set up the database by running the migrations: rake db:migrate.
+Seed the database with sample data: rake db:seed.
+# Models
+# Artist
+The Artist model represents an artist in the music library. It has the following attributes:
 
-Congrats on getting through all the material for Phase 3! Now's the time to put
-it all together and build something from scratch to reinforce what you know and
-expand your horizons.
+name: The name of the artist.
+image_url: The URL of the artist's image.
+# Associations
+has_many :songs: Represents the songs created by the artist.
+# Song
+The Song model represents a song in the music library. It has the following attributes:
 
-The focus of this project is **building a Sinatra API backend** that uses
-**Active Record** to access and persist data in a database, which will be used
-by a separate **React frontend** that interacts with the database via the API.
+title: The title of the song.
+genre: The genre of the song.
+description: A description of the song.
+release_date: The release date of the song.
+image_path: The path to the song's image.
+artist_id: The ID of the artist associated with the song.
+# Associations
+belongs_to :artist: Represents the artist who created the song.
+# API Routes
+The Artist-Songs Music Library application provides the following API routes:
 
-## Requirements
+GET "/artists": Returns all artists in the music library.
 
-For this project, you must:
+GET "/artists/:id": Returns a specific artist by their ID.
 
-- Use Active Record to interact with a database.
-- Have at least two models with a one-to-many relationship.
-- At a minimum, set up the following API routes in Sinatra:
-  - create and read actions for both models
-  - full CRUD capability for one of the models: 
-  The update action should be implemented using a form that is 
-  pre-filled with existing values for the object. On submission of 
-  the form, the object should update. Note: Using a like button or 
-  similar will not meet the update requirement.
-- Build a separate React frontend application that interacts with the API to
-  perform CRUD actions.
-- Implement proper front end state management. You should be updating state using a
-  setState function after receiving your response from a POST, PATCH, or DELETE 
-  request. You should NOT be relying on a GET request to update state. 
-- Use good OO design patterns. You should have separate classes for each of your
-  models, and create instance and class methods as necessary. 
-- Routes in your application (both client side and back end) should follow RESTful
-  conventions.
-- Use your back end optimally. Pass JSON for related associations to the front 
-  end from the back end. You should use active record methods in your controller to grab
-  the needed data from your database and provide as JSON to the front end. You
-  should NOT be relying on filtering front end state or a separate fetch request to
-  retrieve related data.
+GET "/artists/:id/songs": Returns all songs by a specific artist.
 
-For example, build a todo list application with a React frontend interface and a
-Sinatra backend API, where a user can:
+POST "/artists": Creates a new artist in the music library.
 
-- **Create** a new todo
-- **Read** a list of all todos
-- **Update** an individual todo
-- **Delete** a todo
+PUT "/artists/:id": Updates a specific artist by their ID.
 
-A `Todo` can be tagged with a `Category`, so that each todo _belongs to_ a
-category and each category _has many_ todos.
+DELETE "/artists/:id": Deletes a specific artist by their ID.
 
-## Getting Started
+GET "/songs": Returns all songs in the music library.
 
-### Backend Setup
+GET "/songs/:id": Returns a specific song by its ID.
 
-This repository has all the starter code needed to get a Sinatra backend up and
-running. [**Fork and clone**][fork link] this repository to get started. Then, run
-`bundle install` to install the gems.
+POST "/songs": Creates a new song in the music library.
 
-**Important**: Be sure you fork a copy of the repo into your GitHub account
-before cloning it. You can do this by using the link above or by clicking the
-"Octocat" button at the top of this page, then clicking "Fork" in the upper
-right corner of the repo page.
+PUT "/songs/:id": Updates a specific song by its ID.
 
-[fork link]: https://github.com/learn-co-curriculum/phase-3-sinatra-react-project/fork
+DELETE "/songs/:id": Deletes a specific song by its ID.
 
-The `app/controllers/application_controller.rb` file has an example GET route
-handler. Replace this route with routes for your project.
+Make HTTP requests to these routes to interact with the music library. Use the appropriate request methods (GET, POST, PUT, DELETE) and include any necessary parameters in the request body or URL.
 
-You can start your server with:
+# Usage
+After setting up the application, you can interact with the models using the Rails console or by making API requests.
 
-```console
-$ bundle exec rake server
-```
+#ruby
+Start the Rails console
+rake console
 
-This will run your server on port
-[http://localhost:9292](http://localhost:9292).
+# Create a new artist
+artist = Artist.create(name: 'Artist Name', image_url: 'https://example.com/artist-image.jpg')
 
-### Frontend Setup
+# Create a new song
+song = Song.create(
+  title: 'Song Title',
+  genre: 'Genre',
+  description: 'Description of the song',
+  release_date: DateTime.now,
+  image_path: 'path/to/song-image.jpg',
+  artist_id: artist.id
+)
 
-Your backend and your frontend should be in **two different repositories**.
+# Update an artist
+artist.update(name: 'New Artist Name')
 
-Create a new repository in a **separate folder** with a React app for your
-frontend. To do this, `cd` out of the backend project directory, and use
-[create-react-app][] to generate the necessary code for your React frontend:
+# Delete a song
+song.destroy
 
-```console
-$ npx create-react-app my-app-frontend
-```
 
-After creating the project locally, you should also
-[create a repository on GitHub][create repo] to host your repo and help
-collaborate, if you're working with a partner.
+Feel free to explore the models and their methods to understand the functionality of the application.
 
-### Fetch Example
+## Contributing
+Contributions are welcome! If you find any issues or want to add new features, please open an issue or submit a pull request.
 
-Your React app should make fetch requests to your Sinatra backend! Here's an
-example:
-
-```js
-fetch("http://localhost:9292/test")
-  .then((r) => r.json())
-  .then((data) => console.log(data));
-```
-
-## Project Tips
-
-- This project is intended to focus more on the backend than the frontend, so
-  try and keep the React side of things relatively simple. Focus on working with
-  Active Record and performing CRUD actions. What are some interesting queries you can write? What kinds of questions can you ask of your data?
-- Once you have a project idea, come up with a domain model and decide what
-  relationships exist between the models in your application. Use a tool like
-  [dbdiagram.io][] to help visualize your models.
-- Decide on your API endpoints. What data should they return? What kind of CRUD
-  action should they perform? What data do they need from the client?
-- Use [Postman][postman download] to test your endpoints.
-- Use `binding.pry` to debug your requests on the server. It's very helpful to use a
-  `binding.pry` in your controller within a route to see what `params` are being
-  sent.
-- Use the [Network Tab in the Dev Tools][network tab] in the frontend to debug
-  your requests.
-
-## Resources
-
-- [create-react-app][]
-- [dbdiagram.io][]
-- [Postman][postman download]
-
-[create-react-app]: https://create-react-app.dev/docs/getting-started
-[create repo]: https://docs.github.com/en/get-started/quickstart/create-a-repo
-[dbdiagram.io]: https://dbdiagram.io/
-[postman download]: https://www.postman.com/downloads/
-[network tab]: https://developer.chrome.com/docs/devtools/network/
+## License
+The project is available as open source under the terms of the MIT License.
