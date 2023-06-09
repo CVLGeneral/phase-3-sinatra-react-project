@@ -3,7 +3,8 @@ This is a music library application that allows you to manage artists and their 
 
 # Entity Relationship Diagram (ERD)
 ERD Diagram
-<iframe width="560" height="315" src='https://dbdiagram.io/embed/64839a87722eb77494b69de7'> </iframe>
+<img src="./erd.png" alt="bkPDX.png" border="0" />
+
 
 # Getting Started
 To get started with the application, follow these steps:
