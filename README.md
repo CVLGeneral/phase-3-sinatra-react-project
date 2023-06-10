@@ -1,6 +1,13 @@
 # Artist-Songs Music Library
 This is a music library application that allows you to manage artists and their songs. It provides a RESTful API for performing CRUD (Create, Read, Update, Delete) operations on artists and songs. The application uses Ruby on Rails and ActiveRecord for data management.
 
+# Front-end Repository
+
+  <a href="https://github.com/CVLGeneral/Melodify" target="_blank">Link</a>
+
+  <br>
+
+
 # Entity Relationship Diagram (ERD)
 ERD Diagram
 ![ERD Diagram](er.png)
